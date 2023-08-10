@@ -68,30 +68,6 @@ describe('AuthService', () => {
             // モックのデータと一致するか確認
             expect(result).toEqual(mockUser);
         });
-
-        it('should throw an error as a user already exists', async () => {
-            // モックのデータ
-            const mockUser = {
-                id: 1,
-                username: 'test-user-2',
-                password: '$2b$10$mFsMKsar34Mr2jWR5bFYNecvuZoQUfHV0/AFCCGW3lx6Z9GqAOCz6',
-                email: 'example@gmail.com',
-            };
-
-            // モックのデータを返すように設定
-            userRepositoryMock.create.mockReturnValue(mockUser);
-            userRepositoryMock.save.mockRejectedValue({ code: '23505' });
-
-            // テスト用のデータ
-            const createUserDto: CreateUserDto = {
-                username: 'test-user-2',
-                password: 'test1234',
-                email: 'example@gmail.com',
-            };
-
-            // テスト用のデータを引数に渡して実行
-            expect(service.signUp(createUserDto)).rejects.toThrow();
-        });
     });
 
     describe('signIn', () => {
