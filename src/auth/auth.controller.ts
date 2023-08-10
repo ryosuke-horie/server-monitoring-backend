@@ -4,6 +4,9 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CredentialsDto } from './dto/credentials.dto';
 
+/**
+ * 認証用のコントローラー
+ */
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) { }

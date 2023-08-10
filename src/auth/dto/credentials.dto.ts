@@ -1,5 +1,8 @@
 import { IsString, MaxLength, MinLength, IsNotEmpty } from "class-validator";
 
+/**
+ * ユーザーの認証に必要な情報を格納するDTO
+ */
 export class CredentialsDto {
     @IsString()
     @IsNotEmpty()

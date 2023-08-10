@@ -6,6 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
+/**
+ * 認証用のモジュール
+ */
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),

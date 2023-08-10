@@ -8,13 +8,25 @@ import { CredentialsDto } from './dto/credentials.dto';
 
 import * as bcrypt from 'bcrypt';
 
+/**
+ * 認証用のサービス
+ */
 @Injectable()
 export class AuthService {
+    /**
+     * @param userRepository 
+     * @param JwtService 
+     */
     constructor(
         @InjectRepository(User) private userRepository: Repository<User>,
         private JwtService: JwtService,
     ) { }
 
+    /**
+     * signup
+     * @param createUserDto 
+     * @returns
+     */
     async signUp(createUserDto: CreateUserDto): Promise<User> {
         // PostされたCteateUserDtoを展開
         const { username, password, email } = createUserDto;
@@ -41,6 +53,11 @@ export class AuthService {
         return user;
     }
 
+    /**
+     * signin
+     * @param credentialsDto 
+     * @returns 
+     */
     async signIn(credentialsDto: CredentialsDto): Promise<{ accessToken: string }> {
         const { username, password } = credentialsDto; // credentialsDtoを展開
         const user = await this.userRepository.findOneBy({ username }); // usernameからユーザーを取得
