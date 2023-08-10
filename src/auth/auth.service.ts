@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -19,7 +19,7 @@ export class AuthService {
      */
     constructor(
         @InjectRepository(User) private userRepository: Repository<User>,
-        private JwtService: JwtService,
+        private jwtService: JwtService,
     ) { }
 
     /**
@@ -60,14 +60,14 @@ export class AuthService {
      */
     async signIn(credentialsDto: CredentialsDto): Promise<{ accessToken: string }> {
         const { username, password } = credentialsDto; // credentialsDtoを展開
-        const user = await this.userRepository.findOneBy({ username }); // usernameからユーザーを取得
+        const user = await this.userRepository.findOne({ where: { username } });
 
         // パスワードの比較
         // bcryptにより、平文のパスワードとハッシュ値を比較することができる
         if (user && (await bcrypt.compare(password, user.password))) {  
             // JWTを生成
             const payload = { id: user.id, username: user.username };
-            const accessToken = await this.JwtService.sign(payload); // 署名されたtoken
+            const accessToken = await this.jwtService.sign(payload); // 署名されたtoken
             return { accessToken };
         }
         // ユーザーが見つからない場合はエラーを返す
