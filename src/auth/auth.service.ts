@@ -17,10 +17,10 @@ export class AuthService {
      * @param userRepository 
      * @param JwtService 
      */
-    // constructor(
-    //     @InjectRepository(User) private userRepository: Repository<User>,
-    //     private jwtService: JwtService,
-    // ) { }
+    constructor(
+        @InjectRepository(User) private userRepository: Repository<User>,
+        private jwtService: JwtService,
+    ) { }
 
     /**
      * signup
