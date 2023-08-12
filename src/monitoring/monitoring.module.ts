@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MonitoringController } from './monitoring.controller';
 import { MonitoringService } from './monitoring.service';
-import { Monitoring } from 'src/entities/monitoring.entity';
+import { Monitoring } from '../entities/monitoring.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 /**
  * 監視記録用のモジュール

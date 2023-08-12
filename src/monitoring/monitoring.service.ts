@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Monitoring } from 'src/entities/monitoring.entity';
+import { Monitoring } from '../entities/monitoring.entity';
 import { Repository } from 'typeorm';
 import { CreateMonitoringDto } from './dto/create-monitoring.dto';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class MonitoringService {
