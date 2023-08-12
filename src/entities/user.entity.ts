@@ -1,20 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Monitoring } from "./monitoring.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Monitoring } from './monitoring.entity';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    username: string;
+  @Column()
+  username: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column()
-    password: string;
+  @Column()
+  password: string;
 
-    @OneToMany(() => Monitoring, monitoring => monitoring.user)
-    monitorings: Monitoring[];
+  @OneToMany(() => Monitoring, (monitoring) => monitoring.user)
+  monitorings: Monitoring[];
 }

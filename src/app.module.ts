@@ -22,4 +22,4 @@ import { MonitoringModule } from './monitoring/monitoring.module';
     MonitoringModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

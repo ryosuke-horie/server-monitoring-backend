@@ -7,23 +7,24 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(@InjectRepository(User) private userRepository: Repository<User>,
-    ) {
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Bearerトークンを取得
-            ignoreExpiration: false, // 期限切れのトークンを拒否
-            secretOrKey: 'secret', // 秘密鍵
-        })
-    }
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Bearerトークンを取得
+      ignoreExpiration: false, // 期限切れのトークンを拒否
+      secretOrKey: 'secret', // 秘密鍵
+    });
+  }
 
-    async validate(payload: { id: number, username: string }): Promise<User> {
-        const { id, username } = payload;
-        const user = await this.userRepository.findOne({ where: { id, username } });
+  async validate(payload: { id: number; username: string }): Promise<User> {
+    const { id, username } = payload;
+    const user = await this.userRepository.findOne({ where: { id, username } });
 
-        // 認証に成功した場合はユーザー情報を返す
-        if (user) {
-            return user;
-        }
-        throw new UnauthorizedException();
+    // 認証に成功した場合はユーザー情報を返す
+    if (user) {
+      return user;
     }
+    throw new UnauthorizedException();
+  }
 }

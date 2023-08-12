@@ -27,8 +27,8 @@ describe('MonitoringController', () => {
 
   describe('create', () => {
     it('should create a monitoring record and return it', async () => {
-      const currentDate = new Date().toISOString();  // Date型をISO文字列に変換
-      
+      const currentDate = new Date().toISOString(); // Date型をISO文字列に変換
+
       const mockMonitoringRecord = {
         id: 1,
         target_name: 'Test Name',
@@ -51,11 +51,20 @@ describe('MonitoringController', () => {
         updated_at: currentDate,
       };
 
-      const user = { id: 1, username: 'Test User', email: 'test@example.com', password: 'test1234', monitorings: []};
+      const user = {
+        id: 1,
+        username: 'Test User',
+        email: 'test@example.com',
+        password: 'test1234',
+        monitorings: [],
+      };
 
       const result = await controller.create(createMonitoringDto, user);
 
-      expect(mockMonitoringService.create).toHaveBeenCalledWith(createMonitoringDto, user);
+      expect(mockMonitoringService.create).toHaveBeenCalledWith(
+        createMonitoringDto,
+        user,
+      );
       expect(result).toEqual(mockMonitoringRecord);
     });
   });
