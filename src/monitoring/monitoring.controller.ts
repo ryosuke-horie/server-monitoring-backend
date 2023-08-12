@@ -20,9 +20,4 @@ export class MonitoringController {
     ): Promise<Monitoring> {
         return await this.monitoringService.create(createMonitoringDto, user);
     }
-
-    // @Patch('update')
-    // async update() {
-    //     return await this.monitoringService.update();
-    // }
 }
