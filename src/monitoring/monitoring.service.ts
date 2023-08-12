@@ -40,8 +40,4 @@ export class MonitoringService {
 
         return monitoring;
     }
-
-    // async update() {
-    //     return 'update';
-    // }
 }
