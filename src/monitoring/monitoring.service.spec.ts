@@ -28,28 +28,31 @@ describe('MonitoringService', () => {
     expect(service).toBeDefined();
   });
 
-  // it('should create a monitoring record', async () => {
-  //   const createMonitoringDto = {
-  //     target_name: 'Test Name',
-  //     target_ip: '127.0.0.1',
-  //     is_backup_completed: true,
-  //     is_not_alert: false,
-  //     is_working: true,
-  //     created_at: new Date(),
-  //     updated_at: new Date(),
-  //   };
+  it('createメソッドの正常系テスト', async () => {
+    const currentDate = new Date().toISOString();  // Date型をISO文字列に変換
+    const createMonitoringDto = {
+      target_name: 'Test Name',
+      target_ip: '127.0.0.1',
+      is_backup_completed: true,
+      is_not_alert: false,
+      is_working: true,
+      created_at: currentDate,
+      updated_at: currentDate,
+    };
+  
+    // モックユーザー
+    const user = { id: 1, username: 'Test User', email: 'test@example.com', password: 'test1234', monitorings: []};
 
-  //   const user = { id: 1, name: 'Test User' }; // モックユーザー
+    const result = await service.create(createMonitoringDto, user);
+  
+    // モックリポジトリのメソッドが呼び出されたか確認
+    expect(mockMonitoringRepository.create).toBeCalledWith({
+      ...createMonitoringDto,
+      user,
+    });
+    expect(mockMonitoringRepository.save).toBeCalledWith(result);
 
-  //   const result = await service.create(createMonitoringDto, user);
-
-  //   expect(mockMonitoringRepository.create).toBeCalledWith({
-  //     ...createMonitoringDto,
-  //     user,
-  //   });
-  //   expect(mockMonitoringRepository.save).toBeCalledWith(result);
-  //   expect(result).toEqual({ ...createMonitoringDto, user });
-  // });
-
-  // // 他のテストケースをこちらに追加します
+    // 返り値が期待通りか確認
+    expect(result).toEqual({ ...createMonitoringDto, user });
+  });
 });
