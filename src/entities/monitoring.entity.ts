@@ -32,5 +32,5 @@ export class Monitoring {
     user: User;
 
     @Column()
-    user_id: number; // ユーザーID
+    userId: number; // ユーザーID
 }
