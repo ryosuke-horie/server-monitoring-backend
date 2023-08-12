@@ -20,7 +20,8 @@ import { JwtAuthGuard } from './guards/jwt-auth.guards';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  controllers: [AuthController, JwtStrategy, JwtAuthGuard],
-  providers: [AuthService, JwtStrategy, JwtAuthGuard]
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard],
+  exports: [JwtStrategy, JwtAuthGuard], // JwtStrategyとJwtAuthGuardを他のモジュールで使えるようにする
 })
 export class AuthModule {}
