@@ -9,11 +9,8 @@ import { AuthModule } from '../auth/auth.module';
  * 監視記録用のモジュール
  */
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Monitoring]),
-    AuthModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Monitoring]), AuthModule],
   controllers: [MonitoringController],
-  providers: [MonitoringService]
+  providers: [MonitoringService],
 })
 export class MonitoringModule {}

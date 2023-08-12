@@ -9,15 +9,18 @@ describe('MonitoringService', () => {
 
   beforeEach(async () => {
     mockMonitoringRepository = {
-      create: jest.fn().mockImplementation(data => data),
-      save: jest.fn().mockImplementation(data => Promise.resolve(data)),
+      create: jest.fn().mockImplementation((data) => data),
+      save: jest.fn().mockImplementation((data) => Promise.resolve(data)),
       // 他のモック化するメソッドやプロパティをこちらに追加します
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MonitoringService,
-        { provide: getRepositoryToken(Monitoring), useValue: mockMonitoringRepository },
+        {
+          provide: getRepositoryToken(Monitoring),
+          useValue: mockMonitoringRepository,
+        },
       ],
     }).compile();
 
@@ -29,7 +32,7 @@ describe('MonitoringService', () => {
   });
 
   it('createメソッドの正常系テスト', async () => {
-    const currentDate = new Date().toISOString();  // Date型をISO文字列に変換
+    const currentDate = new Date().toISOString(); // Date型をISO文字列に変換
     const createMonitoringDto = {
       target_name: 'Test Name',
       target_ip: '127.0.0.1',
@@ -39,12 +42,18 @@ describe('MonitoringService', () => {
       created_at: currentDate,
       updated_at: currentDate,
     };
-  
+
     // モックユーザー
-    const user = { id: 1, username: 'Test User', email: 'test@example.com', password: 'test1234', monitorings: []};
+    const user = {
+      id: 1,
+      username: 'Test User',
+      email: 'test@example.com',
+      password: 'test1234',
+      monitorings: [],
+    };
 
     const result = await service.create(createMonitoringDto, user);
-  
+
     // モックリポジトリのメソッドが呼び出されたか確認
     expect(mockMonitoringRepository.create).toBeCalledWith({
       ...createMonitoringDto,
