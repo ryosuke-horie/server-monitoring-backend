@@ -7,6 +7,11 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  // CORS設定を有効化
+  app.enableCors({
+    origin: 'http://localhost:3000' // フロントエンドのオリジンを指定
+  });
+
   await app.listen(3000);
 }
 bootstrap();
