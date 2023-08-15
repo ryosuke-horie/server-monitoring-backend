@@ -36,6 +36,7 @@ describe('MonitoringController', () => {
         is_backup_completed: true,
         is_not_alert: false,
         is_working: true,
+        record_date: currentDate,
         created_at: currentDate,
         updated_at: currentDate,
       };
@@ -47,6 +48,7 @@ describe('MonitoringController', () => {
         is_backup_completed: true,
         is_not_alert: false,
         is_working: true,
+        record_date: currentDate,
         created_at: currentDate,
         updated_at: currentDate,
       };
