@@ -1,6 +1,6 @@
 import { BadRequestException, ClassSerializerInterceptor, Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { MonthlyReportService } from './monthly-report.service';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guards';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guards';
 
 @Controller('monthly-report')
 export class MonthlyReportController {
