@@ -5,13 +5,14 @@ import { MonthlyReportService } from './monthly-report.service';
 export class MonthlyReportController {
   constructor(private readonly monthlyReportService: MonthlyReportService) {}
 
-  @Get()
-  findAll() {
-    return this.monthlyReportService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.monthlyReportService.findOne(+id);
+  /**
+   * 月報取得
+   * /monthly-report/2020-01の形式でアクセスされたら、2020年1月の月報を返す 
+   * @param dateYear 
+   * @returns 
+   */
+  @Get(':date-year')
+  async getMonthlyReport(@Param('date-year') dateYear: string) {
+    return await this.monthlyReportService.getMonthlyReport(dateYear);
   }
 }
