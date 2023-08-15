@@ -33,7 +33,10 @@ export class MonthlyReportService {
   /**
    * 指定したターゲットの月次レポートを取得する
    */
-  getMonthlyTargetReport(record_date: string, target_name: string) {
+  getMonthlyTargetReport(dateYear: string, target_name: string) {
+    // dateYearは6桁のため,4文字目と5文字目の間に'/'を挿入する
+    const record_date = dateYear.slice(0, 4) + '/' + dateYear.slice(4, 6);
+
     return this.monitoringRepository.find({
       select: {
         is_backup_completed: true,
