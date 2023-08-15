@@ -23,13 +23,13 @@ export class Monitoring {
   is_working: boolean; // 監視対象サーバー稼働フラグ
 
   @Column()
-  record_date: Date;
+  record_date: string;
 
   @Column()
-  created_at: Date; // 作成日時
+  created_at: string; // 作成日時
 
   @Column()
-  updated_at: Date; // 更新日時
+  updated_at: string; // 更新日時
 
   @ManyToOne(() => User, (user) => user.monitorings)
   user: User;
