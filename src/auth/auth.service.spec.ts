@@ -87,7 +87,7 @@ describe('AuthService', () => {
 
       // テスト用のデータ
       const credentialsDto: CredentialsDto = {
-        username: 'test-user-2',
+        email: 'example@gmail.com',
         password: 'test1234',
       };
 
@@ -104,7 +104,7 @@ describe('AuthService', () => {
 
       // テスト用のデータ
       const credentialsDto: CredentialsDto = {
-        username: 'testuser',
+        email: 'example@gmail.com',
         password: 'testpassword',
       };
 
@@ -129,7 +129,7 @@ describe('AuthService', () => {
 
       // テスト用のデータ
       const credentialsDto: CredentialsDto = {
-        username: 'test-user-2',
+        email: 'example@gmail.com',
         password: 'wrongtestpassword',
       };
 

@@ -65,8 +65,8 @@ export class AuthService {
   async signIn(
     credentialsDto: CredentialsDto,
   ): Promise<{ accessToken: string }> {
-    const { username, password } = credentialsDto; // credentialsDtoを展開
-    const user = await this.userRepository.findOne({ where: { username } });
+    const { email, password } = credentialsDto; // credentialsDtoを展開
+    const user = await this.userRepository.findOne({ where: { email } });
 
     // パスワードの比較
     // bcryptにより、平文のパスワードとハッシュ値を比較することができる
