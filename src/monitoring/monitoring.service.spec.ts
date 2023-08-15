@@ -11,7 +11,6 @@ describe('MonitoringService', () => {
     mockMonitoringRepository = {
       create: jest.fn().mockImplementation((data) => data),
       save: jest.fn().mockImplementation((data) => Promise.resolve(data)),
-      // 他のモック化するメソッドやプロパティをこちらに追加します
     };
 
     const module: TestingModule = await Test.createTestingModule({

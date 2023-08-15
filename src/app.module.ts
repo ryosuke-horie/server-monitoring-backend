@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { MonitoringModule } from './monitoring/monitoring.module';
-import { AppController } from './app.contoroller';
+import { AppController } from './app.controller';
+import { MonthlyReportModule } from './monthly-report/monthly-report.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AppController } from './app.contoroller';
     AuthModule,
     DatabaseModule,
     MonitoringModule,
+    MonthlyReportModule,
   ],
   controllers: [AppController],
 })
