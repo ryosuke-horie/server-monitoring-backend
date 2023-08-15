@@ -32,6 +32,7 @@ export class MonitoringService {
       is_backup_completed,
       is_not_alert,
       is_working,
+      record_date,
       created_at,
       updated_at,
     } = createMonitoringDto;
@@ -42,6 +43,7 @@ export class MonitoringService {
       is_backup_completed,
       is_not_alert,
       is_working,
+      record_date,
       created_at,
       updated_at,
       user,

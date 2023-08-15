@@ -21,6 +21,10 @@ export class CreateMonitoringDto {
   @IsNotEmpty()
   is_working: boolean;
 
+  @IsNotEmpty()
+  @IsString()
+  record_date: string;
+
   @IsString()
   @IsNotEmpty()
   created_at: string;

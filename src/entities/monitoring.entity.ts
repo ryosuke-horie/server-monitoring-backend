@@ -23,6 +23,9 @@ export class Monitoring {
   is_working: boolean; // 監視対象サーバー稼働フラグ
 
   @Column()
+  record_date: Date;
+
+  @Column()
   created_at: Date; // 作成日時
 
   @Column()
