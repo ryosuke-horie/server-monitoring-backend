@@ -39,3 +39,6 @@ docker/
 
 # 環境変数
 .env
+
+# GoogleSheetsAPI用の認証ファイル
+credentials.json

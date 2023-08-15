@@ -22,6 +22,7 @@
     "migration": "typeorm-ts-node-commonjs migration:run -- -d src/database/data-source.ts"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.1.0",
@@ -29,6 +30,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
+    "googleapis": "^105.0.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
