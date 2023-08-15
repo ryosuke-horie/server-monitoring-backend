@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, ClassSerializerInterceptor, Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { MonthlyReportService } from './monthly-report.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guards';
 
@@ -16,7 +16,9 @@ export class MonthlyReportController {
   @UseInterceptors(ClassSerializerInterceptor) // responseを返す前に、passwordを除外する
   @UseGuards(JwtAuthGuard)
   async getMonthlyReport(@Query('dateYear') dateYear:string) {
-    console.log('dateYear', dateYear);
+    if (typeof dateYear !== 'string') {
+      throw new BadRequestException('型が期待されたものではありません。');
+    }
     return await this.monthlyReportService.getMonthlyReport(dateYear);
   }
 }
