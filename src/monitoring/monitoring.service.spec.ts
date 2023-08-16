@@ -35,9 +35,9 @@ describe('MonitoringService', () => {
     const createMonitoringDto = {
       target_name: 'Test Name',
       target_ip: '127.0.0.1',
-      is_backup_completed: true,
-      is_not_alert: false,
-      is_working: true,
+      is_backup_completed: 'true',
+      is_not_alert: 'false',
+      is_working: 'true',
       record_date: currentDate,
       created_at: currentDate,
       updated_at: currentDate,

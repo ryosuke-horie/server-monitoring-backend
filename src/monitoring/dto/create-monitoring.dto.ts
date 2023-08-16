@@ -10,20 +10,14 @@ export class CreateMonitoringDto {
   @IsNotEmpty()
   target_ip: string;
 
-  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
-  @IsBoolean()
-  is_backup_completed: boolean;
+  is_backup_completed: string;
 
-  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
-  @IsBoolean()
-  is_not_alert: boolean;
+  is_not_alert: string;
 
-  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
-  @IsBoolean()
-  is_working: boolean;
+  is_working: string;
 
   @IsNotEmpty()
   @IsString()
