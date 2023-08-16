@@ -14,13 +14,13 @@ export class Monitoring {
   target_ip: string; // 監視対象サーバーIP
 
   @Column()
-  is_backup_completed: boolean; // バックアップ完了フラグ
+  is_backup_completed: string; // バックアップ完了フラグ
 
   @Column()
-  is_not_alert: boolean; // アラート通知フラグ
+  is_not_alert: string; // アラート通知フラグ
 
   @Column()
-  is_working: boolean; // 監視対象サーバー稼働フラグ
+  is_working: string; // 監視対象サーバー稼働フラグ
 
   @Column()
   record_date: string;
