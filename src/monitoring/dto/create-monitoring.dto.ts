@@ -1,4 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMonitoringDto {
   @IsString()
@@ -9,16 +10,19 @@ export class CreateMonitoringDto {
   @IsNotEmpty()
   target_ip: string;
 
-  // @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
+  @IsBoolean()
   is_backup_completed: boolean;
 
-  // @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
+  @IsBoolean()
   is_not_alert: boolean;
 
-  // @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsNotEmpty()
+  @IsBoolean()
   is_working: boolean;
 
   @IsNotEmpty()
