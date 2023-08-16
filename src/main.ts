@@ -9,7 +9,10 @@ async function bootstrap() {
 
   // CORS設定を有効化
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://server-monitoring-prototype.vercel.app/']
+    origin: [
+      'http://localhost:3000',
+      'https://server-monitoring-prototype.vercel.app/',
+    ],
   });
 
   await app.listen(3000);

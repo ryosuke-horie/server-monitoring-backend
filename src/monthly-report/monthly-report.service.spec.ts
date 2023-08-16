@@ -1,7 +1,7 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { MonthlyReportService } from "./monthly-report.service";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { Monitoring } from "../entities/monitoring.entity";
+import { Test, TestingModule } from '@nestjs/testing';
+import { MonthlyReportService } from './monthly-report.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Monitoring } from '../entities/monitoring.entity';
 
 describe('MonthlyReportService', () => {
   let service: MonthlyReportService;
@@ -40,27 +40,27 @@ describe('MonthlyReportService', () => {
           is_working: false,
           record_date: '2023/08/15',
           userId: 1,
-        }
+        },
       ];
-      
+
       // あらかじめモックリポジトリのfindメソッドが期待通りのデータを返すように設定
       mockMonitoringRepository.find.mockImplementation((criteria) => {
         if (criteria.where.target_name === 'パチンコビスタ') {
           return Promise.resolve(mockData);
         }
-        return Promise.resolve([]);  // その他のターゲット名は空の配列を返す
+        return Promise.resolve([]); // その他のターゲット名は空の配列を返す
       });
 
       const result = await service.getMonthlyReport(dateYear);
 
-      expect(mockMonitoringRepository.find).toBeCalled();  // findが呼び出されたかチェック
+      expect(mockMonitoringRepository.find).toBeCalled(); // findが呼び出されたかチェック
       // 期待通りのデータが返されるかチェック
       expect(result).toEqual({
-        'パチンコビスタ': mockData,
-        'エフエス': [],
-        '券売機': [],
-        '券売機プロ': [],
-        'グループセッション': [],
+        パチンコビスタ: mockData,
+        エフエス: [],
+        券売機: [],
+        券売機プロ: [],
+        グループセッション: [],
       });
     });
   });

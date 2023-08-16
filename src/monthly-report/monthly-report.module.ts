@@ -7,6 +7,6 @@ import { Monitoring } from '../entities/monitoring.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Monitoring])],
   controllers: [MonthlyReportController],
-  providers: [MonthlyReportService]
+  providers: [MonthlyReportService],
 })
 export class MonthlyReportModule {}

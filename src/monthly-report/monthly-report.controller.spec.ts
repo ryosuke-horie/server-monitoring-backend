@@ -10,12 +10,12 @@ describe('MonthlyReportController', () => {
     mockMonthlyReportService = {
       getMonthlyReport: jest.fn(),
       getMonthlyTargetReport: jest.fn(),
-    }
+    };
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MonthlyReportController],
       providers: [
-        { provide: MonthlyReportService, useValue: mockMonthlyReportService }
+        { provide: MonthlyReportService, useValue: mockMonthlyReportService },
       ],
     }).compile();
 
@@ -30,17 +30,23 @@ describe('MonthlyReportController', () => {
     it('should call getMonthlyReport from monthlyReportService', async () => {
       const mockParamDate: string = '202308';
       await controller.getMonthlyReport(mockParamDate);
-      expect(mockMonthlyReportService.getMonthlyReport).toHaveBeenCalledWith(mockParamDate);
+      expect(mockMonthlyReportService.getMonthlyReport).toHaveBeenCalledWith(
+        mockParamDate,
+      );
     });
 
     it('パラメータに文字列以外の値が与えられた場合、エラーがスローされる', async () => {
       // 数値が与えられた場合
       const mockParamDate: any = 202308;
-      await expect(controller.getMonthlyReport(mockParamDate)).rejects.toThrow();
+      await expect(
+        controller.getMonthlyReport(mockParamDate),
+      ).rejects.toThrow();
 
       // 配列が与えられた場合
       const mockParamDate2: any = [202308];
-      await expect(controller.getMonthlyReport(mockParamDate2)).rejects.toThrow();
+      await expect(
+        controller.getMonthlyReport(mockParamDate2),
+      ).rejects.toThrow();
     });
   });
 });

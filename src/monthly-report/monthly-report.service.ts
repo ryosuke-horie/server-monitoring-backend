@@ -8,14 +8,17 @@ import { target_server_names } from './consts/target_server_name';
 export class MonthlyReportService {
   /**
    * コンストラクタ
-   * @param monitoringRepository 
+   * @param monitoringRepository
    */
-  constructor(@InjectRepository(Monitoring) private monitoringRepository: Repository<Monitoring>) {}
+  constructor(
+    @InjectRepository(Monitoring)
+    private monitoringRepository: Repository<Monitoring>,
+  ) {}
 
   /**
    * 下のgetMonthlyTargetReportをループして、一括で月次レポートを取得する
-   * @param dateYear 
-   * @returns 
+   * @param dateYear
+   * @returns
    */
   async getMonthlyReport(dateYear: string) {
     // フロントへ返すオブジェクト：
@@ -24,7 +27,10 @@ export class MonthlyReportService {
     // target_server_namesでループ：
     for (const target_server_name of target_server_names) {
       // 対象のサーバーの月報を取得しフロントへ返すオブジェクトに追加
-      resultsObject[target_server_name] = await this.getMonthlyTargetReport(dateYear, target_server_name);
+      resultsObject[target_server_name] = await this.getMonthlyTargetReport(
+        dateYear,
+        target_server_name,
+      );
     }
 
     return resultsObject;
@@ -47,8 +53,8 @@ export class MonthlyReportService {
       },
       where: {
         target_name: target_name,
-        record_date: Like(record_date + '%')
-      }
+        record_date: Like(record_date + '%'),
+      },
     });
   }
 }
