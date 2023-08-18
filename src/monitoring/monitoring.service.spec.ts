@@ -9,6 +9,7 @@ describe('MonitoringService', () => {
 
   beforeEach(async () => {
     mockMonitoringRepository = {
+      find: jest.fn(),
       create: jest.fn().mockImplementation((data) => data),
       save: jest.fn().mockImplementation((data) => Promise.resolve(data)),
     };
@@ -28,6 +29,33 @@ describe('MonitoringService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('findメソッドの正常系テスト', async () => {
+    // モックの戻り値を設定
+    const mockMonitoringRecord = [
+      {
+        target_name: 'パチンコビスタ',
+        is_backup_completed: 'true',
+        is_not_alert: 'true',
+        is_working: 'true',
+      },
+      {
+        target_name: 'エフエス',
+        is_backup_completed: 'true',
+        is_not_alert: 'true',
+        is_working: 'true',
+      },
+    ];
+
+    // MonitoringRepositoryのfindメソッドは、mockMonitoringRecordを返すように設定
+    mockMonitoringRepository.find.mockResolvedValue(mockMonitoringRecord);
+
+    // テスト対象のメソッドを実行
+    const result = await service.find('20210101');
+
+    // モックの戻り値と、テスト対象のメソッドの戻り値が一致することを確認
+    expect(result).toEqual(mockMonitoringRecord);
   });
 
   it('createメソッドの正常系テスト', async () => {

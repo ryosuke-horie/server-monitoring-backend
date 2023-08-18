@@ -17,6 +17,29 @@ export class MonitoringService {
   ) {}
 
   /**
+   * リクエストされた日の登録済みのデータを返す
+   * @param date // 検索対象の日付 例:20230101
+   * @returns Promise<Monitoring[]>
+   */
+  async find(date: string): Promise<Monitoring[]> {
+    // 検索用に日付を整形する。例:20230101 → 2023/01/01
+    const queryDate = date.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
+
+    // 検索対象の日付のデータを取得する
+    const monitoring = await this.monitoringRepository.find({
+      select: {
+        target_name: true,
+        is_backup_completed: true,
+        is_not_alert: true,
+        is_working: true,
+      },
+      where: { record_date: queryDate }
+    });
+
+    return monitoring;
+  }
+
+  /**
    * 監視記録を作成する
    * @param createMonitoringDto
    * @param user
