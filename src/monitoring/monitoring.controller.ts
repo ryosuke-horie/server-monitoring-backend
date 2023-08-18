@@ -26,17 +26,23 @@ export class MonitoringController {
    * リクエストされた日の登録済みのデータを返す
    * @param date // 検索対象の日付 例:20230101
    * @returns Promise<Monitoring[]>
+   * @throws Error // クエリパラメータがない場合は例外をスローする
    */
   @Get()
   async find(@Query('date') date: string): Promise<Monitoring[]> {
+    // クエリパラメータがない場合は例外をスローする
+    if (!date) {
+      throw new Error('date is required');
+    }
+
     return await this.monitoringService.find(date);
   }
 
   /**
    * 登録済みのデータを作成する
-   * @param createMonitoringDto 
-   * @param user 
-   * @returns 
+   * @param createMonitoringDto
+   * @param user
+   * @returns
    */
   @Post()
   async create(
