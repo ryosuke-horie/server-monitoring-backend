@@ -13,6 +13,7 @@ import { MonitoringService } from './monitoring.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guards';
 import { GetUser } from './decorators/monitoring.decorator';
 import { CreateMonitoringDto } from './dto/create-monitoring.dto';
+import { UpdateMonitoringDto } from './dto/update-monitoring.dto';
 import { User } from '../entities/user.entity';
 import { Monitoring } from '../entities/monitoring.entity';
 
@@ -50,5 +51,19 @@ export class MonitoringController {
     @GetUser() user: User,
   ): Promise<Monitoring> {
     return await this.monitoringService.create(createMonitoringDto, user);
+  }
+
+  /**
+   * 登録済みのデータを更新する
+   * @param upateMonitoringDto
+   * @param user
+   * @returns
+   */
+  @Patch()
+  async update(
+    @Body() upateMonitoringDto: UpdateMonitoringDto,
+    @GetUser() user: User,
+  ): Promise<Monitoring> {
+    return await this.monitoringService.update(upateMonitoringDto, user);
   }
 }
