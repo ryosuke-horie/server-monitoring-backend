@@ -83,6 +83,7 @@ export class MonitoringService {
    * @param updateMonitoringDto
    * @param user
    * @returns Promise<Monitoring>
+   * @throws NotFoundException // 更新対象のデータが見つからない場合にスローする
    */
   async update(
     updateMonitoringDto: UpdateMonitoringDto,
