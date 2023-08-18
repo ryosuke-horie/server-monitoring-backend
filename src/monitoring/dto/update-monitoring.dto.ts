@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateMonitoringDto {
+export class UpdateMonitoringDto {
   @IsString()
   @IsNotEmpty()
   target_name: string;
