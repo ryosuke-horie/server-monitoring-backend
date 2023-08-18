@@ -10,6 +10,7 @@ describe('MonitoringService', () => {
   beforeEach(async () => {
     mockMonitoringRepository = {
       find: jest.fn(),
+      findOne: jest.fn(),
       create: jest.fn().mockImplementation((data) => data),
       save: jest.fn().mockImplementation((data) => Promise.resolve(data)),
     };
@@ -91,5 +92,74 @@ describe('MonitoringService', () => {
 
     // 返り値が期待通りか確認
     expect(result).toEqual({ ...createMonitoringDto, user });
+  });
+
+  it('updateメソッドの正常系テスト', async () => {
+    const currentDate = new Date().toISOString();
+    const updateMonitoringDto = {
+      target_name: 'Updated Name',
+      is_backup_completed: 'true',
+      is_not_alert: 'false',
+      is_working: 'true',
+      record_date: currentDate,
+      updated_at: currentDate,
+    };
+
+    const user = {
+      id: 1,
+      username: 'Test User',
+      email: 'test@example.com',
+      password: 'test1234',
+      monitorings: [],
+    };
+
+    const mockMonitoringRecord = {
+      target_name: 'Original Name',
+      is_backup_completed: 'false',
+      is_not_alert: 'true',
+      is_working: 'false',
+      updated_at: new Date().toISOString(),
+      user: user,
+      userId: user.id,
+    };
+
+    mockMonitoringRepository.findOne.mockResolvedValue(mockMonitoringRecord);
+
+    const result = await service.update(updateMonitoringDto, user);
+
+    expect(mockMonitoringRepository.findOne).toBeCalledWith({
+      where: {
+        target_name: updateMonitoringDto.target_name,
+        record_date: updateMonitoringDto.record_date,
+      },
+    });
+    expect(mockMonitoringRepository.save).toBeCalledWith(result);
+    expect(result.target_name).toEqual(updateMonitoringDto.target_name);
+  });
+
+  it('updateメソッドの異常系テスト', async () => {
+    const currentDate = new Date().toISOString();
+    const updateMonitoringDto = {
+      target_name: 'NonExistent Name',
+      is_backup_completed: 'true',
+      is_not_alert: 'false',
+      is_working: 'true',
+      record_date: currentDate,
+      updated_at: currentDate,
+    };
+
+    const user = {
+      id: 1,
+      username: 'Test User',
+      email: 'test@example.com',
+      password: 'test1234',
+      monitorings: [],
+    };
+
+    mockMonitoringRepository.findOne.mockResolvedValue(null); // 対応する監視記録が存在しない場合
+
+    await expect(service.update(updateMonitoringDto, user)).rejects.toThrow(
+      '対応する監視記録が見つかりません',
+    );
   });
 });

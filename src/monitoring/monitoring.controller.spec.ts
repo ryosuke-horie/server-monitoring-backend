@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MonitoringController } from './monitoring.controller';
 import { MonitoringService } from './monitoring.service';
+import { User } from 'src/entities/user.entity';
 
 describe('MonitoringController', () => {
   let controller: MonitoringController;
@@ -10,6 +11,7 @@ describe('MonitoringController', () => {
     mockMonitoringService = {
       find: jest.fn(),
       create: jest.fn(),
+      update: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -122,6 +124,63 @@ describe('MonitoringController', () => {
         createMonitoringDto,
         user,
       );
+      expect(result).toEqual(mockMonitoringRecord);
+    });
+  });
+
+  describe('update', () => {
+    // 正常系のテスト
+    it('updateメソッドを利用する', async () => {
+      // 戻り値のモックデータを設定
+      const mockMonitoringRecord = {
+        id: 1,
+        target_name: 'パチンコビスタ',
+        is_backup_completed: 'true',
+        is_not_alert: 'true',
+        is_working: 'true',
+        record_date: '2023/08/10',
+        created_at: '2023/08/10',
+        updated_at: '2023/08/10',
+        user: {
+          id: 1,
+          username: 'Test User',
+          email: 'example@gmail.com',
+          password: 'hashedPassword',
+        }
+      };
+
+      // モックの戻り値を設定
+      mockMonitoringService.update.mockResolvedValue(mockMonitoringRecord);
+
+      // Patchメソッドでリクエストされたデータを設定
+      const mockUpdateMonitoringDto = {
+        'target_name': 'パチンコビスタ',
+        'is_backup_completed': 'true',
+        'is_not_alert': 'true',
+        'is_working': 'true',
+        'record_date': '2023/08/10',
+        'updated_at': '2023/08/10',
+      };
+
+      // モックユーザー
+      const mockUser:User = {
+        id: 1,
+        username: 'Test User',
+        email: 'example@gmail.com',
+        password: 'hashedPassword',
+        monitorings: [],
+      }
+
+      // テスト対象にリクエストを送信
+      const result = await controller.update(mockUpdateMonitoringDto, mockUser);
+
+      // service層のupdateメソッドが呼び出されたことを確認
+      expect(mockMonitoringService.update).toHaveBeenCalledWith(
+        mockUpdateMonitoringDto,
+        mockUser,
+      );
+
+      // モックの戻り値と、テスト対象のメソッドの戻り値が一致することを確認
       expect(result).toEqual(mockMonitoringRecord);
     });
   });
