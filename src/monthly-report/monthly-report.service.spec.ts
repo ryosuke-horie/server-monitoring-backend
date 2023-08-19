@@ -40,7 +40,7 @@ describe('MonthlyReportService', () => {
     let service: MonthlyReportService;
     let mockMonitoringRepository;
     let mockQueryBuilder;
-  
+
     beforeEach(async () => {
       mockQueryBuilder = {
         leftJoinAndSelect: jest.fn().mockReturnThis(),
@@ -49,12 +49,12 @@ describe('MonthlyReportService', () => {
         select: jest.fn().mockReturnThis(),
         getMany: jest.fn(),
       };
-  
+
       mockMonitoringRepository = {
         find: jest.fn(),
         createQueryBuilder: jest.fn(() => mockQueryBuilder),
       };
-  
+
       const module: TestingModule = await Test.createTestingModule({
         providers: [
           MonthlyReportService,
@@ -64,14 +64,14 @@ describe('MonthlyReportService', () => {
           },
         ],
       }).compile();
-  
+
       service = module.get<MonthlyReportService>(MonthlyReportService);
     });
-  
+
     it('should be defined', () => {
       expect(service).toBeDefined();
     });
-  
+
     describe('getMonthlyReport', () => {
       it('should return the monthly report', async () => {
         const dateYear = '202308';
@@ -87,11 +87,14 @@ describe('MonthlyReportService', () => {
             },
           },
         ];
-  
-        mockQueryBuilder.getMany.mockResolvedValueOnce(mockData).mockResolvedValueOnce([]).mockResolvedValue([]);
-  
+
+        mockQueryBuilder.getMany
+          .mockResolvedValueOnce(mockData)
+          .mockResolvedValueOnce([])
+          .mockResolvedValue([]);
+
         const result = await service.getMonthlyReport(dateYear);
-  
+
         expect(mockMonitoringRepository.createQueryBuilder).toBeCalled();
         expect(mockQueryBuilder.getMany).toHaveBeenCalledTimes(5);
         expect(result).toEqual({
@@ -104,5 +107,4 @@ describe('MonthlyReportService', () => {
       });
     });
   });
-  
 });

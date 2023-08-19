@@ -146,7 +146,7 @@ describe('MonitoringController', () => {
           username: 'Test User',
           email: 'example@gmail.com',
           password: 'hashedPassword',
-        }
+        },
       };
 
       // モックの戻り値を設定
@@ -154,22 +154,22 @@ describe('MonitoringController', () => {
 
       // Patchメソッドでリクエストされたデータを設定
       const mockUpdateMonitoringDto = {
-        'target_name': 'パチンコビスタ',
-        'is_backup_completed': 'true',
-        'is_not_alert': 'true',
-        'is_working': 'true',
-        'record_date': '2023/08/10',
-        'updated_at': '2023/08/10',
+        target_name: 'パチンコビスタ',
+        is_backup_completed: 'true',
+        is_not_alert: 'true',
+        is_working: 'true',
+        record_date: '2023/08/10',
+        updated_at: '2023/08/10',
       };
 
       // モックユーザー
-      const mockUser:User = {
+      const mockUser: User = {
         id: 1,
         username: 'Test User',
         email: 'example@gmail.com',
         password: 'hashedPassword',
         monitorings: [],
-      }
+      };
 
       // テスト対象にリクエストを送信
       const result = await controller.update(mockUpdateMonitoringDto, mockUser);

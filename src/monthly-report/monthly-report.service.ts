@@ -13,7 +13,7 @@ export class MonthlyReportService {
   constructor(
     @InjectRepository(Monitoring)
     private monitoringRepository: Repository<Monitoring>,
-  ) { }
+  ) {}
 
   /**
    * 下のgetMonthlyTargetReportをループして、一括で月次レポートを取得する
@@ -46,11 +46,21 @@ export class MonthlyReportService {
     const monitoring = await this.monitoringRepository
       .createQueryBuilder('monitoring')
       .leftJoinAndSelect('monitoring.user', 'user')
-      .where('monitoring.target_name = :target_name', { target_name: target_name })
-      .andWhere('monitoring.record_date like :record_date', { record_date: record_date + '%' })
-      .select(['monitoring.is_backup_completed', 'monitoring.is_not_alert', 'monitoring.is_working', 'monitoring.record_date', 'user.username'])
+      .where('monitoring.target_name = :target_name', {
+        target_name: target_name,
+      })
+      .andWhere('monitoring.record_date like :record_date', {
+        record_date: record_date + '%',
+      })
+      .select([
+        'monitoring.is_backup_completed',
+        'monitoring.is_not_alert',
+        'monitoring.is_working',
+        'monitoring.record_date',
+        'user.username',
+      ])
       .getMany();
 
-      return monitoring || [];
-    }
+    return monitoring || [];
+  }
 }

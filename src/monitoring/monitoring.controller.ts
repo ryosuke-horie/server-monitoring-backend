@@ -21,7 +21,7 @@ import { Monitoring } from '../entities/monitoring.entity';
 @UseInterceptors(ClassSerializerInterceptor) // responseを返す前にpasswordを除外する
 @UseGuards(JwtAuthGuard)
 export class MonitoringController {
-  constructor(private readonly monitoringService: MonitoringService) { }
+  constructor(private readonly monitoringService: MonitoringService) {}
 
   /**
    * リクエストされた日の登録済みのデータを返す
