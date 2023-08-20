@@ -1,8 +1,9 @@
 import { User } from '../entities/user.entity';
 import { AuthService } from './auth.service';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CredentialsDto } from './dto/credentials.dto';
+import { JwtAuthGuard } from './guards/jwt-auth.guards';
 
 /**
  * 認証用のコントローラー
@@ -21,5 +22,15 @@ export class AuthController {
     @Body() credentialsDto: CredentialsDto,
   ): Promise<{ accessToken: string }> {
     return await this.authService.signIn(credentialsDto);
+  }
+
+  /**
+   * トークンの検証
+   * @returns
+   */
+  @Get('check-token')
+  @UseGuards(JwtAuthGuard) // JWT認証ガードを使用
+  checkToken() {
+    return { valid: true }; // このエンドポイントにアクセスできた場合、トークンは有効
   }
 }
