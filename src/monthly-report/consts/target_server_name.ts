@@ -5,4 +5,5 @@ export const target_server_names = [
   '券売機',
   '券売機プロ',
   'グループセッション',
+  '残数照会',
 ];
