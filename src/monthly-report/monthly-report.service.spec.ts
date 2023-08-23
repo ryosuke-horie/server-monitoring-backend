@@ -6,17 +6,19 @@ import { Monitoring } from '../entities/monitoring.entity';
 describe('MonthlyReportService', () => {
   let service: MonthlyReportService;
   let mockMonitoringRepository;
+  let mockQueryBuilder = {
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
+    where: jest.fn().mockReturnThis(),
+    andWhere: jest.fn().mockReturnThis(),
+    select: jest.fn().mockReturnThis(),
+    orderBy: jest.fn().mockReturnThis(), // これを追加
+    getMany: jest.fn(),
+  };
 
   beforeEach(async () => {
     mockMonitoringRepository = {
       find: jest.fn(),
-      createQueryBuilder: jest.fn(() => ({
-        leftJoinAndSelect: jest.fn().mockReturnThis(),
-        where: jest.fn().mockReturnThis(),
-        andWhere: jest.fn().mockReturnThis(),
-        select: jest.fn().mockReturnThis(),
-        getMany: jest.fn(),
-      })),
+      createQueryBuilder: jest.fn(() => mockQueryBuilder),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -47,6 +49,7 @@ describe('MonthlyReportService', () => {
         where: jest.fn().mockReturnThis(),
         andWhere: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
+        orderBy: jest.fn().mockReturnThis(),
         getMany: jest.fn(),
       };
 
@@ -96,13 +99,14 @@ describe('MonthlyReportService', () => {
         const result = await service.getMonthlyReport(dateYear);
 
         expect(mockMonitoringRepository.createQueryBuilder).toBeCalled();
-        expect(mockQueryBuilder.getMany).toHaveBeenCalledTimes(5);
+        expect(mockQueryBuilder.getMany).toHaveBeenCalledTimes(6);
         expect(result).toEqual({
           パチンコビスタ: mockData,
           エフエス: [],
           券売機: [],
           券売機プロ: [],
           グループセッション: [],
+          残数照会: [],
         });
       });
     });
