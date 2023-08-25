@@ -59,7 +59,7 @@ export class MonthlyReportService {
         'monitoring.record_date',
         'user.username',
       ])
-      .orderBy('monitoring.record_date', 'ASC')
+      .orderBy('monitoring.record_date', 'DESC')
       .getMany();
 
     return monitoring || [];
