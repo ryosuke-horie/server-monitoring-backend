@@ -10,6 +10,10 @@ import {
 import { MonthlyReportService } from './monthly-report.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guards';
 
+/**
+ * 月別レポート用APIのコントローラー
+ * ここでは読み取りのみを行う
+ */
 @Controller('monthly-report')
 export class MonthlyReportController {
   constructor(private readonly monthlyReportService: MonthlyReportService) {}
@@ -25,7 +29,7 @@ export class MonthlyReportController {
   @UseGuards(JwtAuthGuard)
   async getMonthlyReport(@Query('dateYear') dateYear: string) {
     if (typeof dateYear !== 'string') {
-      throw new BadRequestException('型が期待されたものではありません。');
+      throw new BadRequestException('日時は文字列で指定してください');
     }
     return await this.monthlyReportService.getMonthlyReport(dateYear);
   }

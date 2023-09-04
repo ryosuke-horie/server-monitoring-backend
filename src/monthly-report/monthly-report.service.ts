@@ -4,6 +4,9 @@ import { Monitoring } from '../entities/monitoring.entity';
 import { Like, Repository, createQueryBuilder } from 'typeorm';
 import { target_server_names } from './consts/target_server_name';
 
+/**
+ * 月別レポート用APIのサービスクラス
+ */
 @Injectable()
 export class MonthlyReportService {
   /**
@@ -38,6 +41,8 @@ export class MonthlyReportService {
 
   /**
    * 指定したターゲットの月次レポートを取得する
+   * @param dateYear
+   * @param target_name
    */
   async getMonthlyTargetReport(dateYear: string, target_name: string) {
     // dateYearは6桁のため,4文字目と5文字目の間に'/'を挿入する
