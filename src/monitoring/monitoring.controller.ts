@@ -17,10 +17,17 @@ import { UpdateMonitoringDto } from './dto/update-monitoring.dto';
 import { User } from '../entities/user.entity';
 import { Monitoring } from '../entities/monitoring.entity';
 
+/**
+ * 監視記録登録用APIのコントローラー
+ */
 @Controller('monitoring')
 @UseInterceptors(ClassSerializerInterceptor) // responseを返す前にpasswordを除外する
 @UseGuards(JwtAuthGuard)
 export class MonitoringController {
+  /**
+   * コンストラクタ
+   * @param monitoringService
+   */
   constructor(private readonly monitoringService: MonitoringService) {}
 
   /**

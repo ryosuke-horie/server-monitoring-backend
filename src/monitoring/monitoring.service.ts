@@ -6,6 +6,9 @@ import { CreateMonitoringDto } from './dto/create-monitoring.dto';
 import { User } from '../entities/user.entity';
 import { UpdateMonitoringDto } from './dto/update-monitoring.dto';
 
+/**
+ * 監視記録用APIのサービスクラス
+ */
 @Injectable()
 export class MonitoringService {
   /**
