@@ -1,5 +1,8 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
+/**
+ * 監視記録登録用のDTO
+ */
 export class CreateMonitoringDto {
   @IsString()
   @IsNotEmpty()
